@@ -26,6 +26,13 @@ def circle_crop(image: Image):
 
 
 s = 6
+def draw_shape(draw, x0, y0, h, i):
+    r = radius(h)
+    x, y = circle_center(h, i)
+    color = ImageColor.getrgb(f"hsl({360//12 * i}, {int(100 * .5 ** j)}%, 50%)")
+    draw.ellipse(((x0 + x - r, y0 + y - r), (x0 + x + r, y0 + y + r)), color)
+
+
 img = Image.new("RGBA", (1200 * s, 1200 * s))
 draw = ImageDraw.Draw(img)
 h0 = 460 * s
@@ -34,10 +41,8 @@ y0 = 600 * s
 h = h0
 for j in range(11):
     for i in range(12):
-        r = radius(h)
-        x, y = circle_center(h, i)
-        color = ImageColor.getrgb(f"hsl({360//12 * i}, {int(100 * .5 ** j)}%, 50%)")
-        draw.ellipse(((x0 + x - r, y0 + y - r), (x0 + x + r, y0 + y + r)), color)
+
+        draw_shape(draw, x0, y0, h, i)
     h = next_h(h)
 
 with open("out.png", "wb") as im:
