@@ -43,10 +43,10 @@ def place_img(base: Image, img: Image, x0, y0, h, i):
     working_copy = shrink(working_copy, (r * 2, r * 2))
     x, y = circle_center(h, i)
     # coords = [int(v) for v in (x0 + x - r, y0 + y - r, x0 + x + r, y0 + y + r)]
-    coords = [int(v) for v in (x0 + x - r, y0 + y - r)]
+    coords = tuple((int(v) for v in (x0 + x - r, y0 + y - r)))
 
     circle_crop(working_copy)
-    base.paste(working_copy, coords)
+    base.paste(working_copy, coords, working_copy)
 
 
 s = 3
